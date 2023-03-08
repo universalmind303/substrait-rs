@@ -97,6 +97,7 @@ fn serde(protos: &[impl AsRef<Path>], out_dir: PathBuf) -> Result<(), Box<dyn Er
     let mut cfg = Config::new();
     cfg.file_descriptor_set_path(&descriptor_path)
         .type_attribute(".", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute(".", "#[serde(rename_all = \"camelCase\")]")
         .extern_path(".google.protobuf.Any", "::prost_wkt_types::Any")
         .compile_protos(protos, &[PROTO_ROOT])?;
 
